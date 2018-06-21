@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>登陆测试</p>
+    <div>
+      userName:
+      <input type="text" name="" id="userName"/>
+      password:
+      <input type="password" id="password">
+
+      <button type="button" id="button">登陆</button>
+      <script>
+        var xhr = new XMLHttpRequest
+
+        document.getElementById('button').onclick = function(){
+          var userName = document.getElementById('userName').value
+          var password = document.getElementById('password').value
+          xhr.open('post','/doReg',true)
+          xhr.onreadystatechange = function(data) {
+          if (xhr.readyState ===4 && xhr.status===200) {
+              alert('添加成功')
+            }
+          }
+          xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+          xhr.send("userName="+userName+"&password="+password+""); //post请求参数放在send里面，即请求体
+        }
+      </script>
+    </div>
+  </body>
+</html>
