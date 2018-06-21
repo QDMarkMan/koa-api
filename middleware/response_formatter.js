@@ -2,9 +2,10 @@
  * @Author: etf 
  * @Date: 2018-06-20 22:20:50 
  * @Last Modified by: etf
- * @Last Modified time: 2018-06-21 17:43:45
+ * @Last Modified time: 2018-06-21 19:04:10
  * 格式换返回参数
  */
+const ApiError = require('../error/ApiError')
 /**
  * 在app.use(router)之前调用
  * @param {*} ctx 
@@ -31,8 +32,24 @@ const response_formatter = async (ctx, next) => {
 const url_filter = function(pattern) {
   return async function(ctx, next) {
     let reg = new RegExp(pattern)
-    //先去执行路由
-    await next()
+
+    try {
+      //先去执行路由
+      await next()
+    } catch (error) {
+      // 如果异常类型是API异常并且通过正则验证的url，将错误信息添加到响应体中返回。
+      if(error instanceof ApiError && reg.test(ctx.originalUrl)){
+        ctx.status = 200;
+        ctx.body = {
+            code: error.code,
+            message: error.message
+        }
+      }
+      // 抛出异常给日志捕获
+      throw error
+    }
+
+    
     //通过正则的url进行格式化处理
     if(reg.test(ctx.originalUrl)){
         response_formatter(ctx, next)
