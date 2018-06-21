@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-06-20 22:20:50 
  * @Last Modified by: etf
- * @Last Modified time: 2018-06-21 15:44:49
+ * @Last Modified time: 2018-06-21 17:43:45
  * 格式换返回参数
  */
 /**
@@ -19,12 +19,13 @@ const response_formatter = async (ctx, next) => {
       message: 'success',
       data: ctx.body
     }
-  }else{
+    // 把else去掉的原因是如果不去掉 所有的带/api的请求都会有数据返回
+  }/* else{
     ctx.body = {
         code: 0,
         message: 'success'
     }
-  }
+  } */
 }
 //添加格式化处理响应结果的中间件，过滤指定前缀的接口名称，在添加路由之前调用
 const url_filter = function(pattern) {
