@@ -76,4 +76,4 @@ class UserModel{
   
 }
 
-module.exports = User
+module.exports = new UserModel()

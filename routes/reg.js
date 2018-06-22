@@ -1,5 +1,7 @@
 const router = require('koa-router')()
 const User = require('../db/UserModel')
+require('../service/UserEntityService')
+
 // 查看页面
 router.get('/reg', async (ctx, next) => {
   await ctx.render('reg', {
