@@ -14,6 +14,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const reg = require('./routes/reg')
 const login = require('./routes/login')
+const project = require('./routes/project')
 // error handler
 onerror(app)
 
@@ -51,6 +52,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(reg.routes(), reg.allowedMethods())
 app.use(login.routes(), login.allowedMethods())
+app.use(project.routes(), project.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -20,11 +20,10 @@
       }  
   }  
 )
-// 验证连接
+// 测试数据库连接
 sequelize.authenticate().then(() => {
     log(chalk.green(`Connection ${DB.database} has been established successfully`))
-  })
-.catch(err => {
+}).catch(err => {
   // console.error('Unable to connect to the database:', err);
   log(chalk.red(`Connection ${DB.database} fail`))
 })

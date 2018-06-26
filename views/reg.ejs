@@ -31,5 +31,30 @@
         }
       </script>
     </div>
+
+    <div style="margin-top: 30px;">
+      projectName:
+      <input type="text" name="" id="name"/>
+      projectNickName:
+      <input type="text" id="nickname">
+
+      <button type="button" id="project">确认</button>
+      <script>
+        var xhr = new XMLHttpRequest
+
+        document.getElementById('project').onclick = function(){
+          var name = document.getElementById('name').value
+          var nickname = document.getElementById('nickname').value
+          xhr.open('post','/api/addProject',true)
+          xhr.onreadystatechange = function(data) {
+          if (xhr.readyState ===4 && xhr.status===200) {
+              alert('添加成功')
+            }
+          }
+          xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+          xhr.send("name="+name+"&nickname="+nickname+""); //post请求参数放在send里面，即请求体
+        }
+      </script>
+    </div>
   </body>
 </html>

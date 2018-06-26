@@ -34,6 +34,8 @@ const User = sequelize.define('user', {
   password: '123456'
 });   */
 // 查询全部
+// SELECT COUNT(*) FROM table_name  分页查询
+// SELECT * FROM record limit ' + start + ',20';
 /* User.findAll().then(user => {
   console.log(user)
 }) */
@@ -68,7 +70,7 @@ class UserModel{
     return new Promise((resolve, reject) => {
       User.create(uerEntity).then(res =>{
         resolve(res)
-      }).catch(res => {
+      }).catch(error => {
         reject(error)
       })
     })
