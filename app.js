@@ -4,6 +4,20 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+// session 模块
+const session = require('koa-session') // session模块
+app.keys = ['koa:sessionkey'];
+const CONFIG = {
+   key: 'koa:cookie',   //cookie key (default is koa:sess)
+   maxAge: 86400000,  // cookie的过期时间 maxAge in ms (default is 1 days)
+   overwrite: true,  //是否可以overwrite    (默认default true)
+   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
+   signed: true,   //签名默认true
+   rolling: false,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+   renew: false,  //(boolean) renew session when session is nearly expired,
+}
+app.use(session(CONFIG, app))
+
 const logger = require('koa-logger')
 // 连接db
 require('./db/index')

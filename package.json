@@ -25,6 +25,7 @@
     "chalk": "^2.4.1",
     "confman": "^0.2.10",
     "cross-env": "^5.2.0",
+    "koa-session": "^5.8.1",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.3",
     "nodemon": "^1.17.5",
