@@ -16,7 +16,7 @@ router.post('/api/doReg', async (ctx, next) => {
   /**
    * 1:promise异步存储数据
    */
-  User.create({
+  /* User.create({
     userId: Date.now(),  
     userName: para.userName,  
     password: para.password
@@ -24,11 +24,11 @@ router.post('/api/doReg', async (ctx, next) => {
 
   }).catch(res => {
 
-  })
+  }) */
   /**
    * 2:await异步存储数据
    */
-  var userEntity =  await  User.create({  
+  var userEntity =  await User.create({  
     userId: Date.now(),  
     userName: para.userName,  
     password: para.password

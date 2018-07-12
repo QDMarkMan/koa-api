@@ -9,7 +9,6 @@ router.post('/api/addProject', async (ctx, next) => {
   /**
    * 新增项目
    */
-  console.log(para.nickname)
   const projectEntity =  {  
     name: para.name, 
     nickname: para.nickname
@@ -20,6 +19,17 @@ router.post('/api/addProject', async (ctx, next) => {
     message: '注册成功',
     code: 200
   }
+})
+
+router.post('/api/getProjects', async (ctx, next) => {
+  let returnObj = {}
+  /* await ProjectModel.FreateAllProject().then((result) => {
+    returnObj = result
+  }).catch((err) => {
+    
+  }) */
+  returnObj = await ProjectModel.FreateAllProject()
+  ctx.body = returnObj
 })
 
 

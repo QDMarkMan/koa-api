@@ -25,11 +25,13 @@ const Project = sequelize.define('ppm_project', {
 }, {
   freezeTableName: true // 模型表名和数据库名称一致
 })
+/**
+ * 项目表
+ */
 class ProjectModel{
   // 创建项目
   createProject(data){
     const key = UUID.v1()
-    console.log(data)
     // project数据
     const project = {
       project_name: data.name,
@@ -52,6 +54,22 @@ class ProjectModel{
     }).catch(error => {
       console.log(error)
     })
+  }
+  /**
+   *查询全部项目 
+   */
+  async FreateAllProject (){
+    let data = {}
+    console.log(`执行查询方法`)
+    await Project.findAll().then(projects => {
+      data = projects
+    }).catch(res => {
+      console.log(res)
+    })
+    return data
+  }
+  demoFunc(){
+    console.log('执行demo方法')
   }
 }
 

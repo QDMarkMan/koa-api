@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node bin/www",
-    "server": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
+    "server": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www --inspect",
     "prd": "pm2 start bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,7 @@
     "koa-views": "^5.2.1"
   },
   "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "chalk": "^2.4.1",
     "confman": "^0.2.10",
     "cross-env": "^5.2.0",
