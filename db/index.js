@@ -22,10 +22,10 @@
 )
 // 测试数据库连接
 sequelize.authenticate().then(() => {
-    log(chalk.green(`Connection ${DB.database} has been established successfully`))
+    log(chalk.green(`Connection DB ${DB.database} has been established successfully`))
 }).catch(err => {
   // console.error('Unable to connect to the database:', err);
-  log(chalk.red(`Connection ${DB.database} fail`))
+  log(chalk.red(`Connection DB ${DB.database} fail`))
 })
 
 module.exports = sequelize

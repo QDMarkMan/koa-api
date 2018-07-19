@@ -5,22 +5,21 @@
 const sequelize = require('./index')
 const Sequelize = require('sequelize')
 const UUID = require('uuid')
-
+/**
+ * 创建数据库模型
+ */
 const Project = sequelize.define('ppm_project', {
-  /* id: {
-    type: Sequelize.STRING,
-    primaryKey:true,
-    allowNull:false,
-    // defaultValue:DataTypes.UUIDV1
-  }, */
   project_name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING // 项目名称
   },
   project_nicname: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING // 项目别名
   },
   project_id: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING // 项目id
+  },
+  start_date: {
+    type: Sequelize.DATE // 开始时间
   }
 }, {
   freezeTableName: true // 模型表名和数据库名称一致
