@@ -13,6 +13,7 @@ router.post('/api/addProject', async (ctx, next) => {
     name: para.name, 
     nickname: para.nickname
   }
+  ctx.session.user = projectEntity
   await ProjectModel.createProject(projectEntity)
   ctx.body = {
     succeed: true,

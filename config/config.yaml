@@ -70,6 +70,5 @@ safe_body: "urlBody"
 
 
 #######Session白名单拦截配置 支持*，如：/ABCD/* Start
-session_filter_url:
-   ['/index','/login','/verifycode']
+session_filter_url: ['/login','/verifycode']
 #######Session白名单拦截配置 End

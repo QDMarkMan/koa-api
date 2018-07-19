@@ -10,7 +10,7 @@ const UUID = require('uuid')
  */
 const Project = sequelize.define('ppm_project', {
   project_name: {
-    type: Sequelize.STRING // 项目名称
+    type: Sequelize.STRING, // 项目名称
   },
   project_nicname: {
     type: Sequelize.STRING // 项目别名

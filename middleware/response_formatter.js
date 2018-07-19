@@ -2,8 +2,8 @@
  * @Author: etf 
  * @Date: 2018-06-20 22:20:50 
  * @Last Modified by: etf
- * @Last Modified time: 2018-07-18 21:50:04
- * 格式换返回参数
+ * @Last Modified time: 2018-07-19 10:32:38
+ * 格式化返回参数
  */
 const ApiError = require('../error/ApiError')
 /**

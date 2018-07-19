@@ -13,7 +13,7 @@
   {  
       'dialect': 'mysql',  // 数据库使用mysql  
       'host': DB.host, // 数据库服务器ip  
-      'port': DB.port,        // 数据库服务器端口  
+      'port': DB.port, // 数据库服务器端口  
       'define': {  
           // 字段以下划线（_）来分割（默认是驼峰命名风格）  
           'underscored': true  
@@ -22,9 +22,8 @@
 )
 // 测试数据库连接
 sequelize.authenticate().then(() => {
-    log(chalk.green(`Connection DB ${DB.database} has been established successfully`))
+  log(chalk.green(`Connection DB ${DB.database} has been established successfully`))
 }).catch(err => {
-  // console.error('Unable to connect to the database:', err);
   log(chalk.red(`Connection DB ${DB.database} fail`))
 })
 
