@@ -4,11 +4,15 @@ const Sequelize = require('sequelize')
  * 数据库模型
  */
 const User = sequelize.define('user', {
+  id: {
+
+  },
   userName: {
     type: Sequelize.STRING
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false, // 不允许为空
   },
   userId: {
     type: Sequelize.STRING

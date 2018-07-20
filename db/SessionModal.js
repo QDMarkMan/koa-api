@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-07-19 11:55:41 
  * @Last Modified by: etf
- * @Last Modified time: 2018-07-19 16:08:00
+ * @Last Modified time: 2018-07-19 18:56:48
  * session 数据库存储相关
  */
 const sequelize = require('./index')
@@ -27,7 +27,7 @@ const Session = sequelize.define('_mysql_session_store', {
   }
 )
 /**
- * session modal
+ * session 数据库模型
  */
 class SessionModal {
   async GetSeeionById(data){ // 按照数据查询
