@@ -67,9 +67,3 @@ safe_body: "urlBody"
 #######请求白名单（配置的URL不进行加密和解密）支持*，如：/ABCD/*
 #safe_filter_url: ['/login']
 #######安全模块配置 End
-
-
-#######Session白名单拦截配置 支持*，如：/ABCD/* Start
-session_filter_url:
-   ['/index','/login','/verifycode']
-#######Session白名单拦截配置 End

@@ -1,10 +1,10 @@
 const router = require('koa-router')()
 const User = require('../db/UserModel')
-const getSession = require('../service/LoginService')
+const GetSession = require('../service/LoginService')
 // 查看页面
 router.get('/reg', async (ctx, next) => {
   console.log(ctx.session)
-  getSession(JSON.stringify(ctx.session)).then(res => {
+  GetSession(JSON.stringify(ctx.session)).then(res => {
     console.log(`查询到的sessionId${res.id}`)
   })
   await ctx.render('reg', {

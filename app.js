@@ -13,6 +13,7 @@ const MysqlStore  =  require('koa-mysql-session')
 /**
  * koa-sql-session这个包实际上是为我们在数据库中创建了session的表  以及封装了session的表操作
  */
+
 // session 存储配置
 const SESSION_MYSQL_CONFIG = {
   user: config.DB.user,

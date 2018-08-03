@@ -4,11 +4,16 @@
  */
 const sequelize = require('./index')
 const Sequelize = require('sequelize')
+const UuidService = require ('../service/UuidService')
 const UUID = require('uuid')
 /**
  * 创建数据库模型
  */
 const Project = sequelize.define('ppm_project', {
+  id: { // 主键
+    type: Sequelize.STRING(50),
+    primaryKey: true
+  },
   project_name: {
     type: Sequelize.STRING, // 项目名称
   },
@@ -33,6 +38,7 @@ class ProjectModel{
     const key = UUID.v1()
     // project数据
     const project = {
+      id: UuidService.generateId(),// 自动生成的主键
       project_name: data.name,
       project_id: key,// 根据时间戳随机生成userId
       project_nicname: data.nickname
