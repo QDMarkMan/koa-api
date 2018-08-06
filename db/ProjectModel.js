@@ -2,6 +2,7 @@
  * 项目表
  * 定义表格
  */
+console.log(__dirname)
 const sequelize = require('./index')
 const Sequelize = require('sequelize')
 const UuidService = require ('../service/UuidService')
@@ -38,17 +39,21 @@ class ProjectModel{
     const key = UUID.v1()
     // project数据
     const project = {
-      id: UuidService.generateId(),// 自动生成的主键
       project_name: data.name,
-      project_id: key,// 根据时间戳随机生成userId
+      project_id: (new UuidService()).generateId(),// 根据时间戳随机生成userId
       project_nicname: data.nickname
     }
     // 没有表的时候创建表
+    /**
+     * Project.sync() 方法是用来同步所有尚未在数据库中的模型
+     * Project.sync({force: true}) 强制同步所有模型
+     */
     Project.sync().then(() => {
       // 表已创建
       return new Promise((resolve, reject) => {
         Project.create(project).then(res => {
           resolve({
+            result: res,
             success:true,
             code: 200
           })
