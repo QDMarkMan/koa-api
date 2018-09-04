@@ -2,7 +2,6 @@
  * 项目表
  * 定义表格
  */
-console.log(__dirname)
 const sequelize = require('./index')
 const Sequelize = require('sequelize')
 const UuidService = require ('../service/UuidService')
@@ -78,9 +77,6 @@ class ProjectModel{
     })
     return data
   }
-  demoFunc(){
-    console.log('执行demo方法')
-  }
 }
 
-module.exports =  new ProjectModel()
+module.exports =  new ProjectModel() 

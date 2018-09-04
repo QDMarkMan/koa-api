@@ -8,13 +8,12 @@ const bodyparser = require('koa-bodyparser')
 /**
  * session 模块 重新使用 koa-mysql-session + koa-session-minimal
  */
-const session = require('koa-session-minimal') // session模块
-const MysqlStore  =  require('koa-mysql-session')
+const session = require('koa-session-minimal') // 使用于提供存储介质的读写接口
+const MysqlStore  =  require('koa-mysql-session')// 为koa-session-minimal中间件提供MySQL数据库的session数据读写操作
 /**
  * koa-sql-session这个包实际上是为我们在数据库中创建了session的表  以及封装了session的表操作
  */
-
-// session 存储配置
+// session存储配置
 const SESSION_MYSQL_CONFIG = {
   user: config.DB.user,
   password: config.DB.password,
@@ -24,27 +23,29 @@ const SESSION_MYSQL_CONFIG = {
 }
 app.use(session({
   key: config.session_key,
-  store: new MysqlStore(SESSION_MYSQL_CONFIG),
-  rolling: false,         //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+  maxAge: 60 * 60 * 24,                         // cookie的过期时间 maxAge in ms (default is 1 days)
+  store: new MysqlStore(SESSION_MYSQL_CONFIG),  //mysql存储session设置
+  rolling: false,                               //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
   cookie: {
-    maxAge: config.sessionTimeout,       // cookie的过期时间 maxAge in ms (default is 1 days)
-    httpOnly: true,                      // 是否只用于 http 请求中获取
-    overwrite: false                     // 是否允许重写
+    signed: true,                               // 默认签名
+    maxAge: config.sessionTimeout,              // cookie的过期时间 maxAge in ms (default is 1 days)
+    httpOnly: true,                             // 是否只用于 http 请求中获取
+    overwrite: false                            // 是否允许重写
   }
 }))
-/* const session = require('koa-session')
-// koa-session 配置文件
-app.keys = ['koa:sessionkey']
-const CONFIG = {
-   key: 'koa:cookie',   //cookie key (default is koa:sess)
-   maxAge: 86400000,  // cookie的过期时间 maxAge in ms (default is 1 days)
-   overwrite: true,  //是否可以overwrite    (默认default true)
-   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
-   signed: true,   //签名默认true
-   rolling: false,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-   renew: false,  //(boolean) renew session when session is nearly expired,
-} */
-// app.use(session(CONFIG, app))
+// 测试session
+/* app.use(async (ctx) => {
+  if (ctx.url === '/set') {
+    ctx.session = {
+      user_id: Math.random().toString(36).substr(2),
+      count: 0
+    }
+    ctx.body = ctx.session
+  } else if (ctx.url === '/get') {
+    ctx.session.count = ctx.session.count + 1
+    ctx.body = ctx.session
+  }
+}) */
 
 const logger = require('koa-logger')
 // 连接db
