@@ -5,8 +5,9 @@
   "scripts": {
     "start": "node bin/www",
     "serve": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www --inspect",
-    "dev": "cross-env NODE_ENV=development webpack --config client/build/webpack.dev.conf.js && ./node_modules/.bin/nodemon bin/www --inspect",
+    "dev": "cross-env NODE_ENV=development webpack --config client/build/webpack.dev.conf.js && npm run serve",
     "prd": "pm2 start bin/www",
+    "sync:sql": "node sql/async",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

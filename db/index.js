@@ -15,7 +15,7 @@ const sequelize = new Sequelize(
 DB.database, // 数据库名  
 DB.user,   // 用户名  
 DB.password,   // 用户密码  
-{  
+{
     dialect: 'mysql',  // 数据库使用mysql  
     host: DB.host, // 数据库服务器ip  
     port: DB.port, // 数据库服务器端口  
