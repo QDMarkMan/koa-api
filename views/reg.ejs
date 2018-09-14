@@ -3,68 +3,106 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./header') %>
+    <style>
+      .field{
+        width: 30%;
+        margin: 0 auto;
+      }
+    </style>
   </head>
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <body>
     <!-- <h1><%= title %></h1> -->
     <!-- <p>注册测试</p> -->
     <div>
-      userName:
+      <div id="app"></div>
+      <!-- userName:
       <input type="text" name="" id="userName"/>
       password:
       <input type="password" id="password">
-
-      <button type="button" id="button">确认</button>
-      <script>
-        var xhr = new XMLHttpRequest
-
-        document.getElementById('button').onclick = function(){
-          var userName = document.getElementById('userName').value
-          var password = document.getElementById('password').value
-          xhr.open('post','/api/doReg',true)
-          xhr.onreadystatechange = function(data) {
-          if (xhr.readyState ===4 && xhr.status===200) {
-              alert('添加成功')
-            }
-          }
-          xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-          xhr.send("userName="+userName+"&password="+password+""); //post请求参数放在send里面，即请求体
-        }
-      </script>
+      <button type="button" id="button">确认</button> -->
+        <div class="field">
+          <label class="label">username</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+        
+        <div class="field">
+            <label class="label">password</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="password">
+            </div>
+        </div>
+        
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Text input">
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="question">
+              Male
+            </label>
+            <label class="radio">
+              <input type="radio" name="question">
+              Female
+            </label>
+          </div>
+        </div>
+        
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link">Cancel</button>
+          </div>
+        </div>
     </div>
-
-    <div style="margin-top: 30px;">
-      projectName:
-      <input type="text" name="" id="name"/>
-      projectNickName:
-      <input type="text" id="nickname">
-
-      <button type="button" id="project">确认</button>
-      <br>
-      <button type="button" id="get">查询</button>
-      <script>
-        var xhr = new XMLHttpRequest
-
-        document.getElementById('project').onclick = function(){
-          var name = document.getElementById('name').value
-          var nickname = document.getElementById('nickname').value
-          xhr.open('post','/api/addProject',true)
-          xhr.onreadystatechange = function(data) {
-          if (xhr.readyState ===4 && xhr.status===200) {
-              alert('添加成功')
-            }
-          }
-          xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-          xhr.send("name="+name+"&nickname="+nickname+""); //post请求参数放在send里面，即请求体
+    <%- include('./script') %>
+    <script type="text/babel">
+      class RegCom extends React.Component {
+        render() {
+          return (
+            <div className="app">
+                <div className="field title">
+                  <h1>Register</h1>
+                </div>
+                <div className="field">
+                    <label className="label">username</label>
+                    <div className="control">
+                      <input className="input" type="text" placeholder="请输入用户名" />
+                    </div>
+                </div>
+            </div>
+          )
         }
+      }
 
-        $('#get').click(function(){
-          $.post('/api/getProjects').done(function(data){
-            console.log(data)
-          })
-        })
-
-      </script>
-    </div>
+      ReactDOM.render(
+        <RegCom />,
+        document.getElementById('app')
+      );
+    </script>
   </body>
+
 </html>

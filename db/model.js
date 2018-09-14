@@ -10,5 +10,6 @@ let models = files.filter(item => {
 module.exports = {}
 for (let key of models) {
   let moduleName = key.substring(0, key.length -3)
+  // 抛出model
   module.exports[moduleName] = require(path.resolve(__dirname + '/models/' + key))
 }

@@ -1,3 +1,6 @@
+/**
+ * async sql
+ */
 const mysql = require('mysql')
 const chalk = require('chalk')
 const DB = require('../config').DB
@@ -10,7 +13,7 @@ const pool = mysql.createPool({
   password :  DB.password,
   database :  DB.database
 })
-// 查询
+// test
 const query = async (sql, value) => {
   return await new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {

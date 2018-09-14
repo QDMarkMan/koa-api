@@ -1,6 +1,6 @@
 const BaseService = require('./BaseService')
 const AccountModel = require('../db/model').AccountModel
-const UserModel = require('../db/UserModel')
+const UserModel = require('../db/model').UserModel
 class UserService extends BaseService {
   // sessionID
   SessionId = ''
@@ -15,14 +15,38 @@ class UserService extends BaseService {
    * 创建新用户
    * @param {*} user 
    */
-  registerUser (user) {
+  async registerUser (user) {
+    let result
+    try {
+      result = await UserModel.create(user)
+    } catch (error) {
+      result = {
+        code: -1,
+        msg: "创建失败",
+        succeed: false
+      }
+    }
 
+    return result
   }
   /**
-   * 获取当前登录用户的信息
+   * 通过userId 获取信息
+   * @param {*} userId 
    */
-  getUserInfo () {
-
+  async getUserById (userId) {
+    let result
+    try {
+      result =  await UserModel.findOne({
+        where: {id: userId}
+      })
+    } catch (error) {
+      result = {
+        code: -1,
+        msg: "查询失败",
+        succeed: false
+      }
+    }
+    return result
   }
 }
 module.exports = UserService

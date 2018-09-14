@@ -5,10 +5,11 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const routers = require('./routes/index')
 /**
  * session 模块 重新使用 koa-mysql-session + koa-session-minimal
  */
-const session = require('koa-session-minimal') // 使用于提供存储介质的读写接口
+const session = require('koa-session-minimal')   // 使用于提供存储介质的读写接口
 const MysqlStore  =  require('koa-mysql-session')// 为koa-session-minimal中间件提供MySQL数据库的session数据读写操作
 /**
  * koa-sql-session这个包实际上是为我们在数据库中创建了session的表  以及封装了session的表操作
@@ -52,15 +53,8 @@ const logger = require('koa-logger')
 require('./db/index')
 // 处理中间件
 const response_formatter = require('./middleware/response_formatter');
-
-const index = require('./routes/index')
-const users = require('./routes/users')
-const reg = require('./routes/reg')
-const login = require('./routes/login')
-const project = require('./routes/project')
 // error handler
 onerror(app)
-
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
@@ -88,12 +82,7 @@ app.use(async (ctx, next) => {
 // 格式化API格式 仅仅格式化/api结尾
 app.use(response_formatter('^/api'))
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
-app.use(reg.routes(), reg.allowedMethods())
-app.use(login.routes(), login.allowedMethods())
-app.use(project.routes(), project.allowedMethods())
-
+app.use(routers.routes(),routers.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

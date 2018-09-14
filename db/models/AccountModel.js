@@ -10,6 +10,7 @@ const AccountModel = sequelize.define('team_account', {
   {
     freezeTableName: true,
     timestamps: false
-})
+  }
+)
 
 module.exports = AccountModel

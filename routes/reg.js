@@ -8,7 +8,7 @@ router.get('/reg', async (ctx, next) => {
     console.log(`查询到的sessionId${res.id}`)
   })
   await ctx.render('reg', {
-    title: 'Hello KOA'
+    title: 'Hello Team'
   })
 })
 /**
