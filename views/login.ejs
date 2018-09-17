@@ -3,33 +3,63 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./header') %>
+    <style>
+      .field{
+        width: 30%;
+        margin: 0 auto;
+      }
+    </style>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>登陆测试</p>
+    <!-- <h1><%= title %></h1> -->
+    <!-- <p>注册测试</p> -->
     <div>
-      userName:
-      <input type="text" name="" id="userName"/>
-      password:
-      <input type="password" id="password">
-
-      <button type="button" id="button">登陆</button>
-      <script>
-        var xhr = new XMLHttpRequest
-
-        document.getElementById('button').onclick = function(){
-          var userName = document.getElementById('userName').value
-          var password = document.getElementById('password').value
-          xhr.open('post','/doReg',true)
-          xhr.onreadystatechange = function(data) {
-          if (xhr.readyState ===4 && xhr.status===200) {
-              alert('添加成功')
-            }
-          }
-          xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-          xhr.send("userName="+userName+"&password="+password+""); //post请求参数放在send里面，即请求体
-        }
-      </script>
+      <div id="app"></div>
     </div>
+    <%- include('./script') %>
+    <%- include('./common') %>
+    <script type="text/babel">
+      // 注册组件
+      class RegCom extends React.Component {
+        constructor (...args) {
+          super(...args)
+          this.state = {
+            username: '',
+            password: '',
+          }
+        }
+        submit () {
+          const para = {
+            ...this.state
+          }
+          console.log(para)
+          // ajax
+          $.post('/api/login', para).done(function (data) {
+            console.log(data)
+          })
+        }
+        render() {
+          return (
+            <div className="app">
+                <PageTitle name="注册"/>
+                <InputField label="用户名" type="text" placeholder="请输入用户名" onInput= {(e) => {this.setState({username: e.target.value})}} defaultValue={this.state.username}></InputField>
+                <InputField label="密码" type="password" placeholder="请输入密码" onInput= {(e) => {this.setState({password: e.target.value})}} defaultValue={this.state.password}></InputField>
+                <div className="field is-grouped">
+                <div className="control">
+                  <button className="button is-link" onClick={this.submit.bind(this)}>登陆</button>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      }
+      // 渲染dom
+      ReactDOM.render(
+        <RegCom />,
+        document.getElementById('app')
+      )
+    </script>
   </body>
+
 </html>

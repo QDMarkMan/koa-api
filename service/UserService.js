@@ -1,9 +1,9 @@
 const BaseService = require('./BaseService')
-const AccountModel = require('../db/model').AccountModel
 const UserModel = require('../db/model').UserModel
+let UuidService = require('./UuidService')
+let SecretService = require('./SecretService')
 class UserService extends BaseService {
   // sessionID
-  SessionId = ''
   constructor () {
     /**
      * 继承父类
@@ -16,17 +16,23 @@ class UserService extends BaseService {
    * @param {*} user 
    */
   async registerUser (user) {
+    // 对数据进行处理
+    user.id = UuidService.generateId()
+    user.password = SecretService.generatePassportKey(user.password)
     let result
     try {
-      result = await UserModel.create(user)
+      result = await UserModel.createUser(user)
+      if (result.succeed) {
+        result = result.data
+      }
     } catch (error) {
+      console.log(error)
       result = {
         code: -1,
         msg: "创建失败",
         succeed: false
       }
     }
-
     return result
   }
   /**

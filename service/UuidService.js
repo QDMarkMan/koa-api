@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-07-20 10:19:46 
  * @Last Modified by: etf
- * @Last Modified time: 2018-08-05 22:16:21
+ * @Last Modified time: 2018-09-17 17:09:58
  * 生成并返回RFC4122 v1（基于时间戳的）UUID ==> 唯一字符串。
  */
 const UUIDV1 = require('uuid/v1')
@@ -19,15 +19,6 @@ class UuidService {
   constructor () {
     this.MY_NAMESPACE = 'MY_KEY'
   }
-  // MY_NAMESPACE = 'zhanga'
-  
-  // 构造器
-  // constructor () {
-  //   Object.defineProperty(this, 'MY_NAMESPACE', {
-  //       configurable: false,
-  //       writable: false
-  //   })
-  // }
   /**
    * 生成主键id
    */
@@ -41,5 +32,6 @@ class UuidService {
   generateKeyByName (name) {
     uuidv3('Hello, World!', MY_NAMESPACE)
   }
+  
 }
-module.exports = UuidService
+module.exports = new UuidService()

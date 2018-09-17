@@ -1,5 +1,4 @@
 const router = require('koa-router')()
-const User = require('../db/UserModel')
 const GetSession = require('../service/LoginService')
 // 查看页面
 router.get('/reg', async (ctx, next) => {
@@ -30,7 +29,7 @@ router.post('/api/doReg', async (ctx, next) => {
   }) */
   /**
    * 2:await异步存储数据
-   */
+   
   var userEntity =  await User.create({  
     userId: Date.now(),  
     userName: para.userName,  
@@ -43,16 +42,13 @@ router.post('/api/doReg', async (ctx, next) => {
     message: '注册成功',
     code: 200
   }
+  */
 })
 /**
  * 用户模块
  */
 router.get('/api/user', async (ctx, next) => {
   let data = {}
-  // 数据库取数据
-  await User.findAll().then(user => {
-    data = user
-  })
   ctx.body = data
 })
 

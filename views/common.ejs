@@ -1,0 +1,37 @@
+<script type="text/babel">
+  // 页面标题
+class PageTitle extends React.Component {
+  constructor (...args) {
+    super(...args)
+  }
+  render () {
+    return (
+      <div className="field title">
+        <h1>{this.props.name}</h1>
+      </div>
+    )
+  }
+}
+// 输入框组件
+class InputField extends React.Component{
+  constructor(...args) {
+    super(...args)
+  }
+  setValue (e) {
+    this.setState({
+      value: e.target.value
+    })
+  }
+  //setState 方法由父类 Component 所提供。当我们调用这个函数的时候，React.js 会更新组件的状态 state ，并且重新调用 render 方法，然后再把 render 方法所渲染的最新的内容显示到页面上。
+  render () {
+    return (
+      <div className="field">
+          <label className="label">{this.props.label}</label>
+          <div className="control">
+            <input className="input" {...this.props} />
+          </div>
+      </div>
+    )
+  }
+}
+</script>

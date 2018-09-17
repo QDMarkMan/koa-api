@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-07-20 12:39:19 
  * @Last Modified by: etf
- * @Last Modified time: 2018-08-03 14:08:01
+ * @Last Modified time: 2018-09-17 16:27:20
  * 工具类
  */
 /**
@@ -12,7 +12,7 @@
 class Util {
   /**
    * 检查对象的类型
-   * @param {*目标} o 
+   * @param {*目标} 
    */
   judgeObjType(o){
     return Object.prototype.toString.call(o).slice(8, -1)

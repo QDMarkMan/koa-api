@@ -16,92 +16,71 @@
     <!-- <p>注册测试</p> -->
     <div>
       <div id="app"></div>
-      <!-- userName:
-      <input type="text" name="" id="userName"/>
-      password:
-      <input type="password" id="password">
-      <button type="button" id="button">确认</button> -->
-        <div class="field">
-          <label class="label">username</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input">
-          </div>
-        </div>
-        
-        <div class="field">
-            <label class="label">password</label>
-            <div class="control">
-              <input class="input" type="password" placeholder="password">
-            </div>
-        </div>
-        
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="Text input">
-            </div>
-        </div>
-        
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input">
-          </div>
-        </div>
-        
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input">
-          </div>
-        </div>
-        
-        <div class="field">
-          <div class="control">
-            <label class="radio">
-              <input type="radio" name="question">
-              Male
-            </label>
-            <label class="radio">
-              <input type="radio" name="question">
-              Female
-            </label>
-          </div>
-        </div>
-        
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link">Submit</button>
-          </div>
-          <div class="control">
-            <button class="button is-link">Cancel</button>
-          </div>
-        </div>
     </div>
     <%- include('./script') %>
+    <%- include('./common') %>
     <script type="text/babel">
+      // 注册组件
       class RegCom extends React.Component {
+        constructor (...args) {
+          super(...args)
+          this.state = {
+            username: '测试',
+            password: '',
+            nickName: '',
+            address: '',
+            gender: 0,
+            phone: ''
+          }
+        }
+        submit () {
+          const para = {
+            ...this.state
+          }
+          console.log(para)
+          // ajax
+          $.post('/api/register', para).done(function (data) {
+            console.log(data)
+          })
+        }
         render() {
           return (
             <div className="app">
-                <div className="field title">
-                  <h1>Register</h1>
-                </div>
+                <PageTitle name="注册">
+                </PageTitle>
+                <InputField label="用户名" type="text" placeholder="请输入用户名" onInput= {(e) => {this.setState({username: e.target.value})}} defaultValue={this.state.username}></InputField>
+                <InputField label="密码" type="password" placeholder="请输入密码" onInput= {(e) => {this.setState({password: e.target.value})}} defaultValue={this.state.password}></InputField>
+                <InputField label="昵称" type="text" placeholder="请输入昵称" onInput= {(e) => {this.setState({nickName: e.target.value})}} defaultValue={this.state.nickName}></InputField>
+                <InputField label="联系方式" type="phone" placeholder="请输入联系方式" onInput= {(e) => {this.setState({password: e.target.value})}} defaultValue={this.state.phone}></InputField>
+                <InputField label="地址" type="text" placeholder="请输入地址" onInput= {(e) => {this.setState({address: e.target.value})}} defaultValue={this.state.address}></InputField>
                 <div className="field">
-                    <label className="label">username</label>
-                    <div className="control">
-                      <input className="input" type="text" placeholder="请输入用户名" />
-                    </div>
+                  <div className="label">性别</div>
+                  <div className="control">
+                    <label className="radio">
+                      <input type="radio" name="question" />
+                      Male
+                    </label>
+                    <label className="radio">
+                      <input type="radio" name="question" />
+                      Female
+                    </label>
+                  </div>
                 </div>
+                <div className="field is-grouped">
+                <div className="control">
+                  <button className="button is-link" onClick={this.submit.bind(this)}>确定</button>
+                </div>
+                &nbsp;&nbsp;<a href="/login">去登陆</a>  
+              </div>
             </div>
           )
         }
       }
-
+      // 渲染dom
       ReactDOM.render(
         <RegCom />,
         document.getElementById('app')
-      );
+      )
     </script>
   </body>
 

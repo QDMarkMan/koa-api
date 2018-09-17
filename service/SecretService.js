@@ -2,10 +2,11 @@
  * @Author: etf 
  * @Date: 2018-07-19 16:17:34 
  * @Last Modified by: etf
- * @Last Modified time: 2018-08-03 11:57:24
+ * @Last Modified time: 2018-09-17 17:10:36
  * 密码加密模块
  */
 let crypto
+const Util = require('../utils/index')
 /**
  * 以防不支持
  */
@@ -15,14 +16,23 @@ try {
   console.log('不支持 crypto!');
 }
 class SecretService {
-  SECRET_KEY = 'project_management' // 加密解密key
+  constructor () {
+    this.SECRET_KEY = 'project_management' // 加密解密key
+  }
   /**
    * 生成密码 ==> 不可逆操作
    * @author etf
    * @param {*} value 
    */
-  generatePassportKey(value) {
-    return crypto.createHmac('sha256', this.SECRET_KEY).update(value).digest('hex')
+  generatePassportKey(password) {
+    let encoded
+    console.log(Util.judgeObjType(password))
+    if (Util.judgeObjType(password) !== 'String' || password === '') {
+      encoded = ''
+    } else {
+      encoded = crypto.createHash('sha1').update(password).digest('hex')
+    }
+    return encoded
   }
   /**
    *  aes192加密模块
