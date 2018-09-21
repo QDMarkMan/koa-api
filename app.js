@@ -49,8 +49,11 @@ app.use(session({
 }) */
 
 const logger = require('koa-logger')
-// 连接db
+// 连接db squlize
 require('./db/index')
+// 连接mysql 数据库
+const {connectTest} = require('./sql/index')
+connectTest()
 // 处理中间件
 const response_formatter = require('./middleware/response_formatter');
 // error handler

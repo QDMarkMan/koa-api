@@ -3,9 +3,98 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./header') %>
   </head>
   <body>
-    <h1>Hello World</h1>
-    <p>Welcome</p>
+    <div id="app"></div>
+    <%- include('./script') %>
+    <%- include('./common') %>
+    <script type="text/babel">
+      class Home extends React.Component {
+        constructor () {
+          super()
+          this.state = {
+            list: []
+          }
+        }
+        /* 
+          获取全部用户
+        */
+        getAllUsers () {
+          $.post('/api/getAllUsers').done((data) => {
+            this.setState({
+              list: data.data
+            })
+          })
+        }
+        // 删除一个用户
+        deleteUser (para) {
+          $.post('/api/deleteUser', para).done(res => {
+            if (res.data.success) {
+              this.getAllUsers()
+            }
+          })
+        }
+        // 编辑一个用户
+        editUser (para) {
+          console.log(para)
+        }
+        render() {
+          return (
+            <div className="home">
+              <button type="button" className="button" onClick = {this.getAllUsers.bind(this)}>点击查询全部用户</button>
+              <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>
+                      用户名
+                    </th>  
+                    <th>
+                      昵称
+                    </th>  
+                    <th>
+                      id
+                    </th>  
+                    <th>
+                      ip
+                    </th>  
+                    <th>
+                      地址
+                    </th>  
+                    <th>
+                      操作
+                    </th> 
+                  </tr>  
+                </thead>
+                <tbody>
+                  {
+                    this.state.list.length> 0 && this.state.list.map(el => {
+                      return (
+                        <tr key={el.id}>
+                          <td>{el.username}</td>
+                          <td>{el.nick_name}</td>  
+                          <td>{el.id}</td>  
+                          <td>{el.ip}</td>  
+                          <td>{el.address}</td> 
+                          <td>
+                              <a className="button is-white is-small" onClick={this.deleteUser.bind(this, el)}>删除</a>
+                              <a className="button is-white is-small" onClick={this.editUser.bind(this, el)}>编辑</a>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                  
+                </tbody>
+              </table>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <Home/>,
+        document.getElementById('app')
+      )
+    </script>
   </body>
 </html>

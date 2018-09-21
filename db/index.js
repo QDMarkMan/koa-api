@@ -32,7 +32,7 @@ DB.password,   // 用户密码
 )
 // 测试数据库连接
 sequelize.authenticate().then(() => {
-    log(chalk.green(`Connection DB ${DB.database} has been established successfully`))
+    log(chalk.green(`Connection DB ${DB.database} by sequelize successfully`))
 }).catch(err => {
     log(chalk.red(`Connection DB ${DB.database} fail`))
 })

@@ -1,55 +1,12 @@
 const router = require('koa-router')()
-const GetSession = require('../service/LoginService')
+/* const GetSession = require('../service/LoginService')
+GetSession(JSON.stringify(ctx.session)).then(res => {
+  console.log(`查询到的sessionId${res.id}`)
+}) */
 // 查看页面
 router.get('/reg', async (ctx, next) => {
-  console.log(ctx.session)
-  GetSession(JSON.stringify(ctx.session)).then(res => {
-    console.log(`查询到的sessionId${res.id}`)
-  })
   await ctx.render('reg', {
-    title: 'Hello Team'
+    title: 'team'
   })
 })
-/**
- * 简单得提交注册得demo
- */
-router.post('/api/doReg', async (ctx, next) => {
-  const para = ctx.request.body
-  /**
-   * 1:promise异步存储数据
-   */
-  /* User.create({
-    userId: Date.now(),  
-    userName: para.userName,  
-    password: para.password
-  }).then(res =>{
-
-  }).catch(res => {
-
-  }) */
-  /**
-   * 2:await异步存储数据
-   
-  var userEntity =  await User.create({  
-    userId: Date.now(),  
-    userName: para.userName,  
-    password: para.password
-  })
-  console.log('created: ' + JSON.stringify(userEntity))
-  // 返回回执
-  ctx.body = {
-    succeed: true,
-    message: '注册成功',
-    code: 200
-  }
-  */
-})
-/**
- * 用户模块
- */
-router.get('/api/user', async (ctx, next) => {
-  let data = {}
-  ctx.body = data
-})
-
 module.exports = router

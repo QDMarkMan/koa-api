@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-07-19 16:17:34 
  * @Last Modified by: etf
- * @Last Modified time: 2018-09-17 17:10:36
+ * @Last Modified time: 2018-09-17 22:02:42
  * 密码加密模块
  */
 let crypto
@@ -16,6 +16,7 @@ try {
   console.log('不支持 crypto!');
 }
 class SecretService {
+  
   constructor () {
     this.SECRET_KEY = 'project_management' // 加密解密key
   }

@@ -8,7 +8,7 @@ router.get('/login', async (ctx, next) => {
     password: '123456'
   }
   await ctx.render('login', {
-    title: 'Hello DB'
+    title: 'login'
   })
 })
 

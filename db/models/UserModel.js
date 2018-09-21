@@ -74,8 +74,22 @@ const UserModel = {
    * 根据手机号查找用户
    * @param {*} para 
    */
-  async findUserByUserName (para) {
-
+  async findUserByUsername (para) {
+    let result
+    try {
+      await User.findOne({
+        where: {
+          username: para.username
+        }
+      }).then((res) => {
+        result = res
+      }).catch((err) => {
+        
+      });
+    } catch (error) {
+      console.log(error)
+    }
+    return result
   },
   /**
    * 通过用户名和密码获取用户

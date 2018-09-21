@@ -1,7 +1,5 @@
 const controller = require('koa-router')()
 let UserService = require('../service/UserService')
-UserService = new UserService()
-console.log(`引入用户controller成功`)
 controller.prefix('/api')
 /**
  * 注册controller
@@ -19,8 +17,64 @@ controller.post('/register', async (ctx, next) => {
     console.log(error)
     return ctx.body = {
       code: -1,
-      succeed: false,
+      success: false,
       msg: '系统异常'
+    }
+  }
+  ctx.body = result
+})
+/**
+ * 登录controller
+ */
+controller.post('/login', async (ctx, next) => {
+  const para = ctx.request.body
+  console.log(para)
+  let result 
+  try {
+    result = await UserService.userLogin(para)
+  } catch (error) {
+    console.log(error)
+    return ctx.body = {
+      code: -1,
+      success: false,
+      msg: '系统异常'
+    }
+  }
+  ctx.body = result
+})
+/**
+ * 获取全部用户
+ */
+controller.post('/getAllUsers', async (ctx, next) => {
+  let result
+  try {
+    result = await UserService.getUsers()
+  } catch (error) {
+    console.log(error)
+  }
+  ctx.body = result
+})
+/**
+ * 删除用户
+ */
+controller.post('/deleteUser', async (ctx, next) => {
+  const para = ctx.request.body
+  let result
+  try {
+    result = await UserService.deleteUser(para)
+    if (result) {
+      result = {
+        code: 200,
+        success: true,
+        msg: '删除成功'
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    result = {
+      code: -1,
+      success: false,
+      msg: '删除失败'
     }
   }
   ctx.body = result
