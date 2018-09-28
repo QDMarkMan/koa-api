@@ -88,8 +88,8 @@ const findAll = (table) => {
  * @param {*} id 
  */
 const findDataById = (table, id) => {
-  let sql = "SELECT * FROM ?? WHERE id = ? "
-  return query(sql, [ table, id, start, end ])
+  let sql = `SELECT * FROM ${table} WHERE id = "${id}" limit 1`
+  return query(sql, [ table, id])
 }
 /**
  * 插入数据
@@ -106,8 +106,8 @@ const insertData = (table, values) =>{
  * @param {*} values 
  * @param {*} key 主键
  */
-const updateDate = (table, values, key = 'id') => {
-  let sql = `UPDATE ?? SET ? WHERE ${key} = ?`
+const updateDate = (table, values, id) => {
+  let sql = `UPDATE ?? SET ? WHERE id = ?`
   return query(sql, [table, values, id])
 }
 /**

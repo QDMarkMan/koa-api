@@ -31,7 +31,6 @@ class UserService extends BaseService {
     // 对数据进行处理
     user.id = UuidService.generateId()
     user.password = SecretService.generatePassportKey(user.password)
-    // user.reg_date  = user.reg_date ? user.reg_date : new Date()
     try {
       result = await UserModel.createUser(user)
       console.log(result)
@@ -59,10 +58,12 @@ class UserService extends BaseService {
   static async getUserById (userId) {
     let result
     try {
-      result =  await UserModel.findOne({
-        where: {id: userId}
-      })
+      result =  await UserModel.findUserById(userId)
+      if (result) {
+        result = switchJsonType(result, 'undelineToCamel')
+      }
     } catch (error) {
+      console.log(error)
       result = {
         code: -1,
         msg: "查询失败",
@@ -127,6 +128,12 @@ class UserService extends BaseService {
       }
     }
     return result
-  } 
+  }
+  /**
+   * 编辑用户
+   */
+  static async userEdit(id,user) {
+    
+  }
 }
 module.exports = UserService

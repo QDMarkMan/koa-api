@@ -24,8 +24,7 @@ module.exports =  class UserModel {
     let result
     const sql = `SELECT * FROM ${table} WHERE phone = "${para.phone}" or username = "${para.username}" limit 1`
     try {
-      result = await dbUtils.query
-      (sql)
+      result = await dbUtils.query(sql)
       if ( Array.isArray(result) && result.length > 0 ) {
         result = result[0]
       } else {
@@ -59,5 +58,30 @@ module.exports =  class UserModel {
       console.log(error)
     }
     return result
+  }
+  /**
+   * 根据id查询用户信息
+   * @param {id} id 
+   */
+  static async findUserById (id) {
+    let result 
+    try {
+      result = await dbUtils.findDataById(table, id)
+      if ( Array.isArray(result) && result.length > 0 ) {
+        result = result[0]
+      } else {
+        result = null
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    return result
+  }
+  /**
+   * 更新编辑用户
+   * @param {*} para 
+   */
+  static async updateUser (para) {
+
   }
 }

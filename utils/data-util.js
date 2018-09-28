@@ -5,6 +5,7 @@ const Util = require('./index')
  * @param {*string} type camelToUnderline / undelineToCamel  
  */
 module.exports.switchJsonType = (json, type= "camelToUnderline") => {
+  console.log(type)
   let newJson = {}
   for (const key in json) {
     if (json.hasOwnProperty(key)) {

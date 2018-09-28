@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./header') %>
+    <style>
+      .field{
+        width: 30%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="app"></div>
+    </div>
+    <%- include('./script') %>
+    <%- include('./common') %>
+    <script type="text/babel">
+      var getURLKey = function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return r[2];
+        return null;
+      }
+      // 注册组件
+      class RegCom extends React.Component {
+        // 私有变量
+        id = getURLKey('id')
+        constructor (...args) {
+          super(...args)
+          this.state = {
+            username: '',
+            password: '',
+            nickName: '',
+            address: '',
+            gender: 0,
+            phone: ''
+          }
+          this.handleChange = this.handleChange.bind(this)
+        }
+        // 获取用户信息
+        getUserInfo() {
+          const para =  {id: this.id}
+          $.post('/api/getUserById',para).done(res => {
+            if (res) {
+              const data = res.data
+              for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                  this.setState({
+                    [key]: data[key]
+                  })
+                }
+              }
+            } else {
+              console.log(1)
+            }
+          })
+        }
+        submit () {
+          const para = {
+            ...this.state
+          }
+          // ajax
+          $.post('/api/saveEdit', para).done(function (data) {
+            if (data.data.success) {
+
+            } else {
+              console.log(data)
+            }
+          })
+        }
+        handleChange(event) {
+          const target = event.target;
+          const value = target.type === 'checkbox' ? target.checked : target.value;
+          const name = target.name;
+
+          this.setState({
+            [name]: value
+          })
+        }
+        componentDidMount() {
+          this.getUserInfo()
+        }
+        render() {
+          return (
+            <div className="app">
+                <PageTitle name="编辑">
+                </PageTitle>
+                <InputField label="用户名" type="text" placeholder="请输入用户名" name="username" onChange= {this.handleChange} value={this.state.username}></InputField>
+                <InputField label="昵称" type="text" placeholder="请输入昵称" name="nickName" onChange= {this.handleChange} value={this.state.nickName}></InputField>
+                <InputField label="联系方式" type="phone" placeholder="请输入联系方式" name="phone" onChange= {this.handleChange} value={this.state.phone}></InputField>
+                <InputField label="地址" type="text" placeholder="请输入地址" name="address" onChange= {this.handleChange} value={this.state.address}></InputField>
+                <div className="field">
+                  <div className="label">性别</div>
+                  <div className="control">
+                    <label className="radio">
+                      <input type="radio" name="question" value="0" name="gender" onChange= {this.handleChange} checked={this.state.gender === '0' ? true : false}/>
+                      Male
+                    </label>
+                    <label className="radio">
+                      <input type="radio" name="question" value="1" name="gender" onChange= {this.handleChange} checked={this.state.gender === '1' ? true : false}/>
+                      Female
+                    </label>
+                  </div>
+                </div>
+                <div className="field is-grouped">
+                  <div className="control">
+                    <button className="button is-link" onClick={this.submit.bind(this)}>保存</button>
+                    &nbsp;&nbsp;
+                    <a className="button is-link" href="/">返回</a>
+                  </div>
+              </div>
+            </div>
+          )
+        }
+      }
+      // 渲染dom
+      ReactDOM.render(
+        <RegCom />,
+        document.getElementById('app')
+      )
+    </script>
+  </body>
+
+</html>

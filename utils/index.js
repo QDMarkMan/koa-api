@@ -2,7 +2,7 @@
  * @Author: etf 
  * @Date: 2018-07-20 12:39:19 
  * @Last Modified by: etf
- * @Last Modified time: 2018-09-21 09:26:22
+ * @Last Modified time: 2018-09-27 15:47:25
  * 工具类
  */
 /**
@@ -62,6 +62,7 @@ class Util {
     if (this.judgeObjType(str) !== 'String') {
       return str = ''
     }
+    const list = str.split('_')
     let newStr = list[0]
     for (let i = 1; i < list.length; i++) {
       console.log(list[i].slice(0,1).toUpperCase())

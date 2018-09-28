@@ -55,6 +55,22 @@ controller.post('/getAllUsers', async (ctx, next) => {
   ctx.body = result
 })
 /**
+ * 获取单个用户
+ */
+controller.post('/getUserById', async (ctx, next) => {
+  let result 
+  const userId = ctx.request.body.id
+  if (!userId) {
+    return ctx.body = 'userId 不能为空'
+  }
+  try {
+    result = await UserService.getUserById(userId)
+  } catch (error) {
+    console.log(error)
+  }
+  ctx.body = result
+})
+/**
  * 删除用户
  */
 controller.post('/deleteUser', async (ctx, next) => {
