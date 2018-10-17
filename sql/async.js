@@ -1,5 +1,9 @@
-/**
- * async sql
+/*
+ * @Author: etongfu 
+ * @Date: 2018-10-17 17:07:45 
+ * @Last Modified by:   etongfu 
+ * @Last Modified time: 2018-10-17 17:07:45 
+ * 同步本地sql文件
  */
 const mysql = require('mysql')
 const chalk = require('chalk')

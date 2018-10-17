@@ -36,7 +36,8 @@
             nickName: '',
             address: '',
             gender: 0,
-            phone: ''
+            phone: '',
+            id: this.id
           }
           this.handleChange = this.handleChange.bind(this)
         }
@@ -58,14 +59,15 @@
             }
           })
         }
+        // 提交更新
         submit () {
           const para = {
             ...this.state
           }
           // ajax
-          $.post('/api/saveEdit', para).done(function (data) {
+          $.post('/api/updateUserById', para).done((data)=> {
             if (data.data.success) {
-
+              window.location.replace('/')
             } else {
               console.log(data)
             }

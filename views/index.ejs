@@ -63,6 +63,9 @@
                       地址
                     </th>  
                     <th>
+                      电话
+                    </th>  
+                    <th>
                       操作
                     </th> 
                   </tr>  
@@ -77,6 +80,7 @@
                           <td>{el.id}</td>  
                           <td>{el.ip}</td>  
                           <td>{el.address}</td> 
+                          <td>{el.phone}</td>
                           <td>
                               <a className="button is-white is-small" onClick={this.deleteUser.bind(this, el)}>删除</a>
                               <a className="button is-white is-small" onClick={this.editUser.bind(this, el)}>编辑</a>
@@ -89,6 +93,10 @@
               </table>
             </div>
           )
+        }
+        // 查询列表
+        componentDidMount() {
+          this.getAllUsers()
         }
       }
       ReactDOM.render(

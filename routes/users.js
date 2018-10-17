@@ -71,6 +71,27 @@ controller.post('/getUserById', async (ctx, next) => {
   ctx.body = result
 })
 /**
+ * 更新用户
+ */
+controller.post('/updateUserById', async (ctx, next) => {
+  let result
+  const para = ctx.request.body
+  const id = para.id
+  try {
+    result = await UserService.userEdit(id, para)
+    if (result) {
+      result = {
+        code: 200,
+        success: true,
+        msg: '编辑成功'
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  ctx.body = result
+})
+/**
  * 删除用户
  */
 controller.post('/deleteUser', async (ctx, next) => {

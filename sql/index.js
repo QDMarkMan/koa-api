@@ -106,8 +106,18 @@ const insertData = (table, values) =>{
  * @param {*} values 
  * @param {*} key 主键
  */
-const updateDate = (table, values, id) => {
+const updateData = (table, values, id) => {
   let sql = `UPDATE ?? SET ? WHERE id = ?`
+  return query(sql, [table, values, id])
+}
+/**
+ * 更新用户
+ * @param {*} table 
+ * @param {*} values 
+ * @param {*} id 
+ */
+const updateUser = (table, values, id) => {
+  let sql = `UPDATE ?? SET ? WHERE userId = ?`
   return query(sql, [table, values, id])
 }
 /**
@@ -145,7 +155,8 @@ module.exports = {
   createTable,
   findDataById,
   insertData,
-  updateDate,
+  updateData,
+  updateUser,
   deleteDataById,
   select,
   count

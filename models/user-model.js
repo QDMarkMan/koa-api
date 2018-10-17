@@ -81,7 +81,13 @@ module.exports =  class UserModel {
    * 更新编辑用户
    * @param {*} para 
    */
-  static async updateUser (para) {
-
+  static async updateUser (data, id) {
+    let result
+    try {
+      result = await dbUtils.updateData(table, data, id)
+    } catch (error) {
+      console.log(error)
+    }
+    return result
   }
 }

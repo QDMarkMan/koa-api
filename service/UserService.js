@@ -133,7 +133,22 @@ class UserService extends BaseService {
    * 编辑用户
    */
   static async userEdit(id,user) {
-    
+    let result 
+    // 进行驼峰转化
+    user = switchJsonType(user)
+    user.reg_date = "2018-10-17 17:47:00"
+    try {
+      result = await UserModel.updateUser(user, id)
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+      result = {
+        code: -1,
+        msg: "编辑失败",
+        succeed: false
+      }
+    }
+    return result
   }
 }
 module.exports = UserService
