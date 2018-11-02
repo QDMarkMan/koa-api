@@ -36,7 +36,11 @@
           console.log(para)
           // ajax
           $.post('/api/login', para).done(function (data) {
-            console.log(data)
+            if (data.data.succeed) {
+              window.location.href = '/'
+            } else {
+              console.log(data.data.message)
+            }
           })
         }
         render() {

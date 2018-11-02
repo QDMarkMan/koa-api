@@ -1,5 +1,6 @@
 const controller = require('koa-router')()
 let UserService = require('../service/UserService')
+// 设置前缀
 controller.prefix('/api')
 /**
  * 注册controller
@@ -32,6 +33,15 @@ controller.post('/login', async (ctx, next) => {
   let result 
   try {
     result = await UserService.userLogin(para)
+    // 开始挂载session
+    if (result.succeed) {
+      ctx.session = result.data
+      result = {
+        code: 200,
+        msg: "登陆成功",
+        succeed: true
+      }
+    }
   } catch (error) {
     console.log(error)
     return ctx.body = {
@@ -43,9 +53,23 @@ controller.post('/login', async (ctx, next) => {
   ctx.body = result
 })
 /**
+ * 退出登录
+ */
+controller.post('/logout', async (ctx, next) => {
+  ctx.session = null
+  let result
+  result = {
+    code: 200,
+    success: true,
+    msg: '退出成功'
+  }
+  ctx.body = result
+})
+/**
  * 获取全部用户
  */
 controller.post('/getAllUsers', async (ctx, next) => {
+  console.log(ctx.session)
   let result
   try {
     result = await UserService.getUsers()

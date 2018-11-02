@@ -40,10 +40,27 @@
           const id = para.id
           window.location.href = `/edit?id=${id}`
         }
+        addUser () {
+          window.location.href = `/reg`
+        }
+        logout () {
+          $.post('/api/logout').done(res => {
+            if (res.data.success) {
+              window.location.href = '/login'
+            }
+          })
+        }
         render() {
+          const style = {
+            float: 'right'
+          }
           return (
             <div className="home">
-              <button type="button" className="button" onClick = {this.getAllUsers.bind(this)}>点击查询全部用户</button>
+               {/*<button type="button" className="button" onClick = {this.getAllUsers.bind(this)}>点击查询全部用户</button> */}
+              <button type="button" className="button" onClick = {this.addUser}>注册用户</button>
+              {/* 退出登录 */}
+              <button type="button" style={style} className="button" onClick = {this.logout}>退出登录</button>
+
               <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                 <thead>
                   <tr>

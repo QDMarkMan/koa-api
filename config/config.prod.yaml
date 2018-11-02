@@ -10,7 +10,7 @@ nodeport: 3001
 #######WebSocket端口
 soketport: 3002
 ########web端口
-webport: 3000
+webport: 8080
 
 #######最后一次上线日期 yyyy/MM/dd
 #lastDeployDate:

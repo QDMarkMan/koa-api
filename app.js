@@ -22,11 +22,13 @@ const SESSION_MYSQL_CONFIG = {
   host: config.DB.host,
   port: config.DB.port
 }
+// session持久化
 app.use(session({
   key: config.session_key,
-  maxAge: 60 * 60 * 24,                         // cookie的过期时间 maxAge in ms (default is 1 days)
+  maxAge: 60 * 60 * 24 * 1000,                  // cookie的过期时间 maxAge in ms (default is 1 days)
   store: new MysqlStore(SESSION_MYSQL_CONFIG),  //mysql存储session设置
-  rolling: false,                               //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+  rolling: true,                                //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false） 设置fasle的时候无论多长时间操作那么就失效
+  renew: false,                                 // 请求的时候如果session快过期了 那么就重新激活 效果和上面的差不多
   cookie: {
     signed: true,                               // 默认签名
     maxAge: config.sessionTimeout,              // cookie的过期时间 maxAge in ms (default is 1 days)
@@ -54,22 +56,18 @@ require('./db/index')
 // 连接mysql 数据库
 const {connectTest} = require('./sql/index')
 connectTest()
-// 处理中间件
-const response_formatter = require('./middleware/response_formatter');
 // error handler
 onerror(app)
 // middlewares
+// 处理中间件
+const response_formatter = require('./middleware/response_formatter')
+const sessionFilter = require('./middleware/sessionFilter')
+// body支持格式
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
 // file
 app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
@@ -84,6 +82,7 @@ app.use(async (ctx, next) => {
 })
 // 格式化API格式 仅仅格式化/api结尾
 app.use(response_formatter('^/api'))
+app.use(sessionFilter()) // session黑白名单过滤中间件
 // routes
 app.use(routers.routes(),routers.allowedMethods())
 // error-handling

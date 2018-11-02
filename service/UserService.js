@@ -21,6 +21,7 @@ class UserService extends BaseService {
     // 处理para
     let user = switchJsonType(data)
     const exitUser = await UserModel.findUserByNameOrPhone(data)
+    console.log(exitUser)
     if (exitUser) {
       return result = {
         code: -1,
@@ -81,7 +82,30 @@ class UserService extends BaseService {
     const password = SecretService.generatePassportKey(param.password)
     const username = param.username
     try {
-      result =  await UserModel.findUserByUsername({password, username})
+      result =  await UserModel.findUserByUserName(username)
+      const user = result[0]
+      if (!result) {
+        result = {
+          code: -1,
+          msg: "查无用户",
+          succeed: false
+        }
+      } else {
+        if (user.password === password) {
+          result = {
+            code: 200,
+            data:user,
+            msg: "登陆成功",
+            succeed: true
+          }
+        } else {
+          result = {
+            code: -1,
+            msg: "登陆失败，密码错误",
+            succeed: false
+          }
+        }
+      }
       // console.log(result)
     } catch (error) {
       console.log(error)

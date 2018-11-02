@@ -36,6 +36,21 @@ module.exports =  class UserModel {
     return result
   }
   /**
+   * 根据用户名查找用户
+   * ==> 查找必须是已经存在的用户
+   * @param {*用户名 不能为空} username 
+   */
+  static async findUserByUserName (username = "") {
+    const sql = `SELECT * FROM ${table} WHERE username = '${username}' LIMIT 1`
+    let result
+    try {
+      result = dbUtils.query(sql)
+    } catch (error) {
+      console.log(error)
+    }
+    return result
+  }
+  /**
    * 查询全部用户
    */
   static async findAllUsers () {

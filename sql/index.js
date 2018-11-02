@@ -147,7 +147,7 @@ const count = (table) => {
   let sql = `SELECT COUNT(*) AS total_count FROM ??`
   return query(sql, [table])
 }
-
+// 抛出数据
 module.exports = {
   query,
   connectTest,
