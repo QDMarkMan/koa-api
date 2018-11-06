@@ -12,8 +12,6 @@
     </style>
   </head>
   <body>
-    <!-- <h1><%= title %></h1> -->
-    <!-- <p>注册测试</p> -->
     <div>
       <div id="app"></div>
     </div>
@@ -46,7 +44,7 @@
         render() {
           return (
             <div className="app">
-                <PageTitle name="注册"/>
+                <PageTitle name="登录"/>
                 <InputField label="用户名" type="text" placeholder="请输入用户名" onInput= {(e) => {this.setState({username: e.target.value})}} defaultValue={this.state.username}></InputField>
                 <InputField label="密码" type="password" placeholder="请输入密码" onInput= {(e) => {this.setState({password: e.target.value})}} defaultValue={this.state.password}></InputField>
                 <div className="field is-grouped">

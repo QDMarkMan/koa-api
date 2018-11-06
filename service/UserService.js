@@ -1,7 +1,7 @@
 const BaseService = require('./BaseService')
 // const UserModel = require('../db/model').UserModel
 const UserModel = require('../models/user-model')
-const { switchJsonType } = require('../utils/data-util')
+const { switchJsonType } = require('../utils/data_util')
 let UuidService = require('./UuidService')
 let SecretService = require('./SecretService')
 class UserService extends BaseService {

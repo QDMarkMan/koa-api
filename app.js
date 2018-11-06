@@ -6,6 +6,7 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const routers = require('./routes/index')
+const LoggerUtil = require ('./utils/log_utils')
 /**
  * session 模块 重新使用 koa-mysql-session + koa-session-minimal
  */
@@ -67,18 +68,27 @@ app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
-app.use(logger())
+// app.use(logger())
 // file
 app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
-// logger
+// log4js
 app.use(async (ctx, next) => {
   const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  //响应间隔时间
+  let ms
+  try {
+    //开始进入到下一个中间件
+    await next()
+    ms = new Date() - start
+    LoggerUtil.logger(`${ctx.method} ${ctx.url} - ${ms}ms`)
+    LoggerUtil.logRes(ctx, ms);
+  } catch (error) {
+    ms = new Date() - start
+    LoggerUtil.logError(ctx,error, ms)
+  }
 })
 // 格式化API格式 仅仅格式化/api结尾
 app.use(response_formatter('^/api'))
