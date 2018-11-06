@@ -3,8 +3,7 @@ projectName: koa-api
 #######备注
 remark: null
 #######正式/测试 production or develop
-env: development
-#env: production
+env: production
 #######Node启动端口
 nodeport: 3001
 #######WebSocket端口
