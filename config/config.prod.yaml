@@ -9,7 +9,7 @@ nodeport: 3001
 #######WebSocket端口
 soketport: 3002
 ########web端口
-webport: 8080
+webport: 3000
 
 #######最后一次上线日期 yyyy/MM/dd
 #lastDeployDate:
@@ -26,11 +26,11 @@ sessionTimeout: 30 * 60 * 1000
 #OSS Secret
 #######OSS配置 End
 #########Momgo配置 Start
-#测试mongo地址
+#DB config
 DB:
   host: 'localhost' # 这也是注释，不会输出的
   port: 3306
-  database: 'test'
+  database: 'project_progress'
   user: 'root'
   password: '123456'
 #正式mongo地址
@@ -64,5 +64,5 @@ DB:
 safe_path: "urlPath"
 safe_body: "urlBody"
 #######请求白名单（配置的URL不进行加密和解密）支持*，如：/ABCD/*
-#safe_filter_url: ['/login']
+safe_filter_url: ['/login', '/reg']
 #######安全模块配置 End

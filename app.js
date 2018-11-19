@@ -5,6 +5,7 @@ const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const cors = require('koa2-cors')
 const routers = require('./routes/index')
 const LoggerUtil = require ('./utils/log_utils')
 /**
@@ -68,13 +69,12 @@ app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
 app.use(json())
-// app.use(logger())
 // file
 app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
-// log4js
+// log4js日志
 app.use(async (ctx, next) => {
   const start = new Date()
   //响应间隔时间
@@ -93,6 +93,22 @@ app.use(async (ctx, next) => {
 // 格式化API格式 仅仅格式化/api结尾
 app.use(response_formatter('^/api'))
 app.use(sessionFilter()) // session黑白名单过滤中间件
+// cors设置
+app.use(cors(
+  {
+    /* origin: function (ctx) {
+        if (ctx.url === '/api') {
+            return "*" // 允许来自所有域名请求
+        }
+        return 'http://localhost:8080' // 这样就能只允许 http://localhost:8080 这个域名的请求了
+    }, */
+    origin:'*',
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 // routes
 app.use(routers.routes(),routers.allowedMethods())
 // error-handling
